@@ -120,6 +120,13 @@ internal fun TransactionListScreen(
                 modifier = Modifier.background(Color.Companion.White),
                 title = {
                     Text(
+                        modifier = Modifier.semantics {
+                            contentDescription = when (isLoading) {
+                                true -> "Retrieving transactions from remote"
+                                false -> "Transactions have been retrieved"
+                            }
+                        },
+
                         text = stringResource(
                             when (isLoading) {
                                 true -> R.string.retrieving
@@ -137,6 +144,9 @@ internal fun TransactionListScreen(
                         modifier = Modifier.padding(end = 8.dp)
                     ) {
                         Text(
+                            modifier = Modifier.semantics {
+                                contentDescription = "Retrieve transactions from remote"
+                            },
                             text = stringResource(R.string.reset),
                             style = MaterialTheme.typography.titleSmall
                         )
@@ -226,8 +236,11 @@ internal fun TransactionItem(
         Row(
             modifier = Modifier.padding(16.dp)
         ) {
-            Column(modifier = Modifier.weight(1f)) { // 让左侧内容占据可用空间
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
+                    modifier = Modifier.semantics {
+                        contentDescription = "Transaction summary: ${transaction.summary}"
+                    },
                     text = transaction.summary,
                     style = MaterialTheme.typography.bodyLarge
                 )
@@ -238,6 +251,9 @@ internal fun TransactionItem(
                     dateFormat.format(transaction.transactionDate)
                 }
                 Text(
+                    modifier = Modifier.semantics {
+                        contentDescription = "Transaction date: $formattedDateDisplay"
+                    },
                     text = formattedDateDisplay,
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.Gray,
@@ -265,7 +281,8 @@ internal fun LoadingItem(message: String) {
     ) {
         CircularProgressIndicator(modifier = Modifier.size(24.dp))
         Spacer(modifier = Modifier.width(8.dp))
-        Text(text = message)
+        Text(
+            text = message)
     }
 }
 
@@ -278,6 +295,9 @@ internal fun ErrorItem(message: String) {
         contentAlignment = Alignment.Center
     ) {
         Text(
+            modifier = Modifier.semantics {
+                contentDescription = "Error: $message"
+            },
             text = stringResource(R.string.error, message),
             color = Color.Red
         )
@@ -296,10 +316,18 @@ internal fun MessageDialog(message: String, onDismiss: () -> Unit) {
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = message, style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    modifier = Modifier.semantics {
+                        contentDescription = "Message dialog: $message"
+                    },
+                    text = message, style = MaterialTheme.typography.bodyLarge)
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = onDismiss) {
-                    Text(stringResource(R.string.okay))
+                    Text(
+                        modifier = Modifier.semantics {
+                            contentDescription = "Okay and close Dialog"
+                        },
+                        text = stringResource(R.string.okay))
                 }
             }
         }
@@ -369,10 +397,12 @@ internal fun RadioButton(
         )
 
         Text(
+            modifier = Modifier.padding(start = 8.dp).semantics {
+                contentDescription = "Sort transaction by: $label"
+            },
             text = label,
             color = Color.Black,
             fontSize = 16.sp,
-            modifier = Modifier.padding(start = 8.dp)
         )
     }
 }

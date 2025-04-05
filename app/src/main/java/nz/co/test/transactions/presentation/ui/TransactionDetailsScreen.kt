@@ -32,6 +32,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -88,6 +90,9 @@ fun TransactionDetailsScreen(
                 modifier = Modifier.background(Color.White),
                 title = {
                     Text(
+                        modifier = Modifier.semantics {
+                            contentDescription = "The id of this is $transactionId"
+                        },
                         text = stringResource(R.string.transaction_details_title, transactionId),
                         style = MaterialTheme.typography.titleLarge
                     )
@@ -166,6 +171,9 @@ fun TransactionDetailsScreen(
                     },
                 ) {
                     Text(
+                        modifier = Modifier.semantics {
+                            contentDescription = "Start calculation of GST for transaction $transactionId"
+                        },
                         text = stringResource(R.string.calculate_gst),
                         style = MaterialTheme.typography.titleMedium
                     )
@@ -189,7 +197,9 @@ internal fun ItemRow(
     content: String,
 ) {
     Row (
-        modifier = modifier.padding(horizontal = 12.dp),
+        modifier = modifier.padding(horizontal = 12.dp).semantics {
+            contentDescription = "The $caption is $content"
+        },
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
