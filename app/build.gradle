@@ -1,70 +1,115 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
-    compileSdk 34
-
+    namespace "nz.co.test.transactions"
+    compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "nz.co.test.transactions"
-        minSdk 28
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility rootProject.ext.javaVersion
+        targetCompatibility rootProject.ext.javaVersion
+    }
+    kotlinOptions {
+        jvmTarget = rootProject.ext.jvmTarget
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.1.1"
     }
 
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_1_8)
-        }
+    buildFeatures {
+        buildConfig true
+        compose true
+        viewBinding = true
     }
-    namespace 'nz.co.test.transactions'
 }
 
 dependencies {
 
-    def dagger_version = '2.51.1'
+    implementation(libs.core.ktx)
+    implementation libs.appcompat
+    implementation libs.legacy.support.v4
+    implementation libs.lifecycle.viewmodel.ktx
 
-    implementation "com.google.dagger:dagger:${dagger_version}"
-    kapt "com.google.dagger:dagger-compiler:${dagger_version}"
+    //Timber
+    implementation libs.timber
 
-    implementation "com.google.dagger:dagger-android:${dagger_version}"
-    implementation "com.google.dagger:dagger-android-support:${dagger_version}"
-    kapt "com.google.dagger:dagger-android-processor:${dagger_version}"
+    //compose
+    def composeBom = libs.compose.bom
+    implementation composeBom
+    androidTestImplementation composeBom
+    implementation libs.activity.compose
+    implementation libs.lifecycle.viewmodel.compose
+    implementation libs.paging.runtime
+    implementation libs.paging.compose
 
-    def kotlin_version = '2.0.0'
+    //Material3
+    implementation libs.material3
+    implementation libs.material3.window.size
+    implementation libs.material.icons.extended
+    implementation libs.material3.adaptive
+    implementation libs.material3.adaptive.navigation.suite
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    //hilt
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+    implementation libs.hilt.navigation.compose
 
-    def fragment_version = '1.8.0'
-    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    // Android Studio Preview support
+    implementation libs.ui.tooling.preview
+    debugImplementation libs.ui.tooling
 
-    def retrofit_version = '2.11.0'
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    // Compose UI Tests
+    androidTestImplementation libs.ui.test.junit4
+    debugImplementation libs.ui.tooling
+    debugImplementation libs.ui.test.manifest
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    //Unit Tests
+    implementation libs.kotlin.test
+
+    testImplementation libs.runner
+    testImplementation libs.ext.junit
+
+    testImplementation libs.junit.ktx
+    testImplementation(libs.junit)
+
+    testImplementation libs.mockwebserver
+
+    testImplementation libs.kotlinx.coroutines.test
+
+    testImplementation(libs.mockito.kotlin)
+
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.kotlinx.coroutines.core)
+    testImplementation libs.paging.common
+
+    //UI tests
+    androidTestImplementation(libs.ui.test.junit4) // Replace with the latest version
+    androidTestImplementation(libs.ui.tooling) // For inspecting the UI in tests (optional but helpful)
+    androidTestImplementation(libs.ui.test.manifest) // For enabling UI tests
+    androidTestImplementation(libs.paging.compose.android) // Assuming you use Paging 3
 }
