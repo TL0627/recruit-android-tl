@@ -60,7 +60,6 @@ By adhering to these principles, the application achieves a clean, scalable, and
    All codes and resources related to the traditional View/XML-based UI SDK have been removed. The application now fully adopts Jetpack Compose for building the user interface, leveraging its modern, declarative approach for a more efficient and scalable UI development process.  
 3. ​Replacement of Dagger with Hilt  
    The Dagger dependency injection framework has been replaced with Hilt. Hilt provides a more streamlined and type-safe way to manage dependency injection, reducing boilerplate code and improving developer productivity. This change aligns with the modern best practices for dependency management in Android development.  
-   ---
 
 ### Extra Features Implemented
 
