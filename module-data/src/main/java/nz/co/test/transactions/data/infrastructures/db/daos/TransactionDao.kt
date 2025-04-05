@@ -14,7 +14,7 @@ interface TransactionDao {
     suspend fun upsertTransactions(transactions: List<TransactionEntity>)
 
     @Query("UPDATE transactions SET gst = :amount WHERE id = :id")
-    suspend fun updateGST(id: Int, amount: Float)
+    suspend fun updateGst(id: Int, amount: Float)
 
     @Query("SELECT * FROM transactions ORDER BY transactionDate DESC")
     fun getTransactionsOrderByTransactionDateDesc(): PagingSource<Int, TransactionEntity>

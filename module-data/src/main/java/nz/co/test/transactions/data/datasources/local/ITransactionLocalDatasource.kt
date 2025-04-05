@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 import nz.co.test.transactions.data.datasources.local.models.TransactionEntity
 
 interface ITransactionLocalDatasource {
-    suspend fun updateGST(id: Int, amount: Float)
+    suspend fun updateGst(id: Int, amount: Float)
 
     suspend fun upsertTransactions(transactions: List<TransactionEntity>)
 

@@ -16,7 +16,7 @@ class TransactionLocalDatasourceImpl @Inject constructor(
 
     override fun getTransactionsOrderByTransactionDateDesc() = dao.getTransactionsOrderByTransactionDateDesc()
 
-    override suspend fun updateGST(id: Int, amount: Float) = dao.updateGST(id = id, amount = amount)
+    override suspend fun updateGst(id: Int, amount: Float) = dao.updateGst(id = id, amount = amount)
 
     override fun getTransaction(id: Int): Flow<TransactionEntity?> = dao.observeTransaction(id = id)
 

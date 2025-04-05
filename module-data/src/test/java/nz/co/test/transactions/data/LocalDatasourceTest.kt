@@ -6,14 +6,12 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import nz.co.test.transactions.data.datasources.local.ITransactionLocalDatasource
 import nz.co.test.transactions.data.datasources.local.impl.TransactionLocalDatasourceImpl
-import nz.co.test.transactions.data.datasources.local.models.TransactionEntity
 import nz.co.test.transactions.data.infrastructures.db.daos.TransactionDao
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
-import java.util.Date
 import kotlin.random.Random
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -47,11 +45,11 @@ class LocalDatasourceTest {
     }
 
     @Test
-    fun updateGST_callsDao() = runTest {
+    fun updateGst_callsDao() = runTest {
         val id = Random.nextInt()
         val amount = Random.nextFloat()
-        datasource.updateGST(id = id, amount = amount)
-        verify(fakeDao).updateGST(id = id, amount = amount)
+        datasource.updateGst(id = id, amount = amount)
+        verify(fakeDao).updateGst(id = id, amount = amount)
     }
 
     @Test
@@ -69,13 +67,4 @@ class LocalDatasourceTest {
         datasource.getTransactionsCount()
         verify(fakeDao).getTransactionsCount()
     }
-
-    private fun createTransactionEntity(id: Int = Random.nextInt()) = TransactionEntity(
-        id = id,
-        transactionDate = Date(),
-        summary = "summary",
-        debit = Random.nextFloat(),
-        credit = Random.nextFloat(),
-        gst = null,
-    )
 }
