@@ -1,33 +1,41 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.room)
+    alias(libs.plugins.devtools.ksp)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
-    namespace "nz.co.test.transactions"
+    namespace 'nz.co.test.transactions.data'
     compileSdk rootProject.ext.compileSdkVersion
+
     defaultConfig {
-        applicationId "nz.co.test.transactions"
         minSdk rootProject.ext.minSdkVersion
         targetSdk rootProject.ext.targetSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField("String", "REST_ENDPOINT_BASE_URL", "\"https://gist.githubusercontent.com/\"")
     }
 
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [
+                    isClearTextTrafficAllowed: "false",
+            ]
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [
+                    isClearTextTrafficAllowed: "true",
+            ]
         }
     }
     compileOptions {
@@ -40,54 +48,41 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.1.1"
     }
-
-    buildFeatures {
-        buildConfig true
-        compose true
-        viewBinding = true
+    room {
+        schemaDirectory "$projectDir/schemas"
     }
+    buildFeatures.buildConfig = true
 }
 
 dependencies {
-    implementation project(':module-data')
-
-    implementation(libs.core.ktx)
+    implementation libs.core.ktx
     implementation libs.appcompat
-    implementation libs.legacy.support.v4
-    implementation libs.lifecycle.viewmodel.ktx
 
     //Timber
     implementation libs.timber
 
-    //compose
-    def composeBom = libs.compose.bom
-    implementation composeBom
-    androidTestImplementation composeBom
-    implementation libs.activity.compose
-    implementation libs.lifecycle.viewmodel.compose
-    implementation libs.paging.runtime
-    implementation libs.paging.compose
+    //Room
+    implementation libs.room.runtime
+    ksp libs.room.compiler
+    implementation(libs.room.ktx)
 
-    //Material3
-    implementation libs.material3
-    implementation libs.material3.window.size
-    implementation libs.material.icons.extended
-    implementation libs.material3.adaptive
-    implementation libs.material3.adaptive.navigation.suite
+    // optional - Test helpers
+    testImplementation libs.room.testing
+
+    // optional - Paging 3 Integration
+    api libs.room.paging
 
     //hilt
     implementation libs.hilt.android
     kapt libs.hilt.compiler
     implementation libs.hilt.navigation.compose
 
-    // Android Studio Preview support
-    implementation libs.ui.tooling.preview
-    debugImplementation libs.ui.tooling
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
-    // Compose UI Tests
-    androidTestImplementation libs.ui.test.junit4
-    debugImplementation libs.ui.tooling
-    debugImplementation libs.ui.test.manifest
+    //OkHttp
+    implementation(libs.okhttp)
 
     //Unit Tests
     implementation libs.kotlin.test
@@ -108,9 +103,4 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.core)
     testImplementation libs.paging.common
 
-    //UI tests
-    androidTestImplementation(libs.ui.test.junit4) // Replace with the latest version
-    androidTestImplementation(libs.ui.tooling) // For inspecting the UI in tests (optional but helpful)
-    androidTestImplementation(libs.ui.test.manifest) // For enabling UI tests
-    androidTestImplementation(libs.paging.compose.android) // Assuming you use Paging 3
 }
