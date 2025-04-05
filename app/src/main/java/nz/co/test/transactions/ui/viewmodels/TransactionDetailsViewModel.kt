@@ -1,4 +1,4 @@
-package nz.co.test.transactions.presentation.viewmodels
+package nz.co.test.transactions.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

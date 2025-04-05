@@ -11,7 +11,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import nz.co.test.transactions.data.repositories.model.Transaction
 import nz.co.test.transactions.domain.ITransactionInteractor
-import nz.co.test.transactions.presentation.viewmodels.TransactionDetailsViewModel
+import nz.co.test.transactions.ui.viewmodels.TransactionDetailsViewModel
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before

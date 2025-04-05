@@ -5,7 +5,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import nz.co.test.transactions.data.repositories.model.Transaction
-import nz.co.test.transactions.presentation.ui.TransactionDetailsScreen
+import nz.co.test.transactions.ui.screens.TransactionDetailsScreen
 import org.junit.Rule
 import org.junit.Test
 import java.util.Date

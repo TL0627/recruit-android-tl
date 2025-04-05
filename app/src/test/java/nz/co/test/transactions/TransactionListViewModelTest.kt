@@ -12,8 +12,8 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import nz.co.test.transactions.data.repositories.model.Transaction
 import nz.co.test.transactions.domain.ITransactionInteractor
-import nz.co.test.transactions.presentation.viewmodels.TransactionListViewModel
-import nz.co.test.transactions.presentation.viewmodels.TransactionListViewModel.SortOptions
+import nz.co.test.transactions.ui.viewmodels.TransactionListViewModel
+import nz.co.test.transactions.ui.viewmodels.TransactionListViewModel.SortOptions
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

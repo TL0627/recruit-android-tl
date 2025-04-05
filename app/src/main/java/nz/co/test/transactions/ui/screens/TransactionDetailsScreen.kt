@@ -1,4 +1,4 @@
-package nz.co.test.transactions.presentation.ui
+package nz.co.test.transactions.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import nz.co.test.transactions.R
-import nz.co.test.transactions.presentation.viewmodels.TransactionDetailsViewModel
+import nz.co.test.transactions.ui.viewmodels.TransactionDetailsViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -80,6 +80,8 @@ fun TransactionDetailsScreen(
     summary: String,
     debit: Float,
     credit: Float,
+    debitTextColor: Color = Color.Red,
+    creditTextColor: Color = Color.Green,
     gst: Float?,
     onBackClick: () -> Unit,
     onCalculateGstClick: (Int, Float) -> Unit,
@@ -141,7 +143,7 @@ fun TransactionDetailsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     caption = stringResource(R.string.debit),
                     content = "$%.2f".format(debit),
-                    contentTextColor = Color.Red,
+                    contentTextColor = debitTextColor,
                 )
 
                 DividerDefaults
@@ -150,7 +152,7 @@ fun TransactionDetailsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     caption = stringResource(R.string.credit),
                     content = "$%.2f".format(credit),
-                    contentTextColor = Color.Green,
+                    contentTextColor = creditTextColor,
                 )
 
                 DividerDefaults
