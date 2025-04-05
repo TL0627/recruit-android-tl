@@ -4,12 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import dagger.hilt.android.AndroidEntryPoint
+import nz.co.test.transactions.presentation.ui.MainScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -18,12 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MaterialTheme {
-                Text(
-                    modifier = Modifier.fillMaxSize(),
-                    textAlign = TextAlign.Center,
-                    text = "Hello World!",
-                    style = MaterialTheme.typography.headlineMedium
-                )
+                MainScreen()
             }
         }
     }
