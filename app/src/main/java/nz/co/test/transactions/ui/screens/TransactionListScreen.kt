@@ -1,4 +1,4 @@
-package nz.co.test.transactions.presentation.ui
+package nz.co.test.transactions.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -55,8 +55,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import kotlinx.coroutines.flow.flowOf
 import nz.co.test.transactions.R
 import nz.co.test.transactions.data.repositories.model.Transaction
-import nz.co.test.transactions.presentation.viewmodels.TransactionListViewModel
-import nz.co.test.transactions.presentation.viewmodels.TransactionListViewModel.SortOptions
+import nz.co.test.transactions.ui.viewmodels.TransactionListViewModel
+import nz.co.test.transactions.ui.viewmodels.TransactionListViewModel.SortOptions
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

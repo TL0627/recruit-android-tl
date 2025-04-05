@@ -8,7 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import kotlinx.coroutines.flow.flowOf
 import nz.co.test.transactions.data.repositories.model.Transaction
-import nz.co.test.transactions.presentation.ui.TransactionListScreen
+import nz.co.test.transactions.ui.screens.TransactionListScreen
 import org.junit.Rule
 import org.junit.Test
 import java.util.Date

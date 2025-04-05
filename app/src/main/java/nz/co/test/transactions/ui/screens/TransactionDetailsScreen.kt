@@ -1,4 +1,4 @@
-package nz.co.test.transactions.presentation.ui
+package nz.co.test.transactions.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import nz.co.test.transactions.R
-import nz.co.test.transactions.presentation.viewmodels.TransactionDetailsViewModel
+import nz.co.test.transactions.ui.viewmodels.TransactionDetailsViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
